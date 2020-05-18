@@ -37,8 +37,10 @@ library(stringr)
 
 ## 4. Getting started with the Data
 
-Dataset can be found at: https://www.kaggle.com/ashudata/covid19dataset
-Data is fetched from John Hopkins University & European Centre for Disease Prevention and Control (ECDC), processed, and available in CSV format.
+Dataset can be found at: https://www.kaggle.com/ashudata/covid19dataset 
+There are **2** datasets available but for this analysis we have chosen the **COVID_Data_Basic** dataset
+
+The data is fetched from John Hopkins University & European Centre for Disease Prevention and Control (ECDC), processed, and available in a CSV format. Also note that these sources are considered to be credible.
 
 List of attributes in this dataset: 
 * Country: Affected Country
@@ -51,6 +53,8 @@ List of attributes in this dataset:
 * newRecovered: # of new recovered cases/day
 
 
+First, let's take a look at the various rows that we have available in our dataset. As we can see, this dataset contains useful global Coronavirus data that we can use for analysis.
+
 ```{r data_setup}
 covid_data <- read_csv("COVID_Data_Basic.csv")
 
@@ -58,7 +62,7 @@ sample_n(covid_data, 10)
 ```
 
 
-We can see that Our goal is to analyze the United States so we would then use **filter** from the **dplyr** library to obtain just the United State data (labeled US).
+Our goal is to analyze the COVID-19 situation in the United States so we would then use **filter** from the **dplyr** library to obtain just the United State data (labeled US).
 
 
 ```{r dataselect}
@@ -69,7 +73,7 @@ head(US_data, 10)
 
 ```
 
-First, let's display a graph of the cumulative confirmed, death, and recovered cases to get a sense of the spread of the virus.
+First, let's display a graph of the cumulative confirmed, death, and recovered cases to get a sense of the spread of the virus. In order to do this, we are going to take advantage of the powerful **ggplot** library. In addition to the cumulative cases, we will also graph the newConfirmed, newDeath, and newRecovered columns in another graph. The additional columns indicate the amount of cases on a given day and will assist us in further analysis.
 
 ```{r graph1}
 
@@ -80,10 +84,16 @@ US_data %>%
   geom_line(aes(y=Recovered, colour="Recovered (Cumulative)")) +
   labs(title="Cases in the United States", x="Month (2020)", y="Amount")
 
+US_data %>%
+  ggplot(aes(Date)) +
+  geom_line(aes(y=newConfirmed, colour="Confirmed Cases")) +
+  geom_line(aes(y=newDeath, colour="Deaths")) +
+  geom_line(aes(y=newRecovered, colour="Recovered")) +
+  labs(title="Cases per day in the U.S.", x="Month (2020)", y="Amount")
 ```
 
 
-We can see that starting from mid-March, there was a steep increase in cases. Let's filter the date to after March 15th so we can get a better view at the growth. For the filtered dates, we will also graph the newConfirmed, newDeath, and newRecovered columns. The additional columns indicate the amount of cases on a given day and will assist us in further analysis.
+We can see that starting from mid-March, there was a very steep increase in cases per day. Let's filter the date to after March 15th using **filter** again so we can get a better view at the growth. In order to get a better picture after mid-March, we will once again graph the two respective graphs. 
 
 ```{r graph2}
 
@@ -102,7 +112,9 @@ US_data_filt %>%
   geom_line(aes(y=newConfirmed, colour="Confirmed Cases")) +
   geom_line(aes(y=newDeath, colour="Deaths")) +
   geom_line(aes(y=newRecovered, colour="Recovered")) +
-  labs(title="Cases per day in the U.S.", x="Month (2020)", y="Amount")
+  labs(title="Cases per day in the U.S.", x="Months (March 15... (2020))", y="Amount")
 
 
 ```
+
+
