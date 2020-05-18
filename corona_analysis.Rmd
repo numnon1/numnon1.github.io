@@ -1,0 +1,78 @@
+---
+title: "Corona Analysis"
+author: "Non Nonceeya"
+date: "5/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Introduction
+
+In the last couple months, the United States and many countries around the world have locked down and heavily restricted social gatherings in efforts to prevent the spread of SARS-CoV2, more commonly referred to as COVID-19. With the world essentially in lock down, it seems as though every news outlet is reporting about COVID-19. However, with the increasing articles about the virus and its effects, the amount of false information is increasing as well. 
+
+https://www.worldometers.info/coronavirus/coronavirus-death-rate/
+
+## 2. Motivation
+
+Due to all the varying sources and data online, we decided to use a public dataset on COVID-19 cases within the United States to find out for ourselves what the true impacts of the virus are. Finding out the true impacts of COVID-19 is important because the virus is highly contagious. Therefore, the impacts of the virus will be widespread. Additionally, this tutorial will analyze the mortality rates within the United States by state without any media bias, so the results will show a more accurate picture of what the United States can expect in the future. 
+In this tutorial, we will analyze the spread of coronavirus within the United States. We will examine the 
+
+## 3, Libraries
+
+As we continue with this analysis, we want to take advantage of many powerful R libraries.
+
+```{r libs}
+library(tidyr)
+library(ggplot2)
+library(broom)
+library(caret)
+library(tidyverse)
+library(lubridate)
+library(readr)
+library(stringr)
+```
+
+## 4. Getting started with the Data
+
+Dataset can be found at: https://www.kaggle.com/ashudata/covid19dataset
+Data is fetched from John Hopkins University & European Centre for Disease Prevention and Control (ECDC), processed, and available in CSV format.
+
+List of attributes in this dataset: 
+* Country: Affected Country
+* Date: Date of observation (YYYY-MM-DD)
+* Confirmed: Cumulative # of confirmed cases
+* Death: Cumulative # of death cases
+* Recovered: Cumulative # of recovered cases
+* newConfirmed: # of new confirmed cases/day
+* newDeath: # of new death cases/day
+* newRecovered: # of new recovered cases/day
+
+
+```{r data_setup}
+covid_data <- read_csv("COVID_Data_Basic.csv")
+
+sample_n(covid_data, 10)
+```
+
+
+We can see that Our goal is to analyze the United States so we would then use **filter** from the **dplyr** library to obtain just the United State data (labeled US).
+
+
+```{r dataselect}
+
+US_data <- filter(covid_data, Country == "US")
+
+head(US_data, 10)
+
+```
+
+First, let's display a graph of the cumulative confirmed, death, and recovered cases to get a sense of the spread of the virus.
+
+```{r graph1}
+
+US_data %>%
+  ggplot()
+```
