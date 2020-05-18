@@ -53,7 +53,7 @@ List of attributes in this dataset:
 * newRecovered: # of new recovered cases/day
 
 
-First, let's take a look at the various rows that we have available in our dataset. As we can see, this dataset contains useful global Coronavirus data that we can use for analysis.
+First, let's take a look at the various rows that we have available in our dataset. As we can see, this dataset contains useful global Coronavirus data that we can use for analysis. Fortunately for us, the fields for our columns are appropiate for data analysis and we do not need to further **tidy** our data. Our countries are readily available as **Character vectors**, Date as **Dates**, and cases as **Doubles**. 
 
 ```{r data_setup}
 covid_data <- read_csv("COVID_Data_Basic.csv")
@@ -73,8 +73,13 @@ head(US_data, 10)
 
 ```
 
-First, let's display a graph of the cumulative confirmed, death, and recovered cases to get a sense of the spread of the virus. In order to do this, we are going to take advantage of the powerful **ggplot** library. In addition to the cumulative cases, we will also graph the newConfirmed, newDeath, and newRecovered columns in another graph. The additional columns indicate the amount of cases on a given day and will assist us in further analysis.
+## 5. Exploratory Data Analysis
 
+### Data Visualization
+
+First, let's display a graph of the cumulative confirmed, death, and recovered cases to get a sense of the spread of the virus. In order to do this, we are going to take advantage of the powerful **ggplot** library. In addition to the cumulative cases, we will also graph the newConfirmed, newDeath, and newRecovered columns in another graph. The additional columns indicate the amount of cases on a given day and will assist us in further analysis. 
+
+[Talk about central tendencies/skew]
 ```{r graph1}
 
 US_data %>%
@@ -106,7 +111,6 @@ US_data_filt %>%
   geom_line(aes(y=Recovered, colour="Recovered")) +
   labs(title="Cumulative Cases in U.S.", x="Month (2020)", y="Amount")
 
-
 US_data_filt %>%
   ggplot(aes(Date)) +
   geom_line(aes(y=newConfirmed, colour="Confirmed Cases")) +
@@ -114,7 +118,15 @@ US_data_filt %>%
   geom_line(aes(y=newRecovered, colour="Recovered")) +
   labs(title="Cases per day in the U.S.", x="Months (March 15... (2020))", y="Amount")
 
-
 ```
 
 
+[throw in some data articles talking about spike, lack of materials]
+
+[credible sources so we should be concerned and lessen this curve]
+
+## 6. Hypothesis testing and Machine Learning 
+
+[can essentially go off project5 code & use random forest to predict growth and use this as warning to stay home]
+
+## 7. Conclusion
