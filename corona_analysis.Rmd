@@ -17,14 +17,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## 1. Introduction
 
-In the last couple months, the United States and many countries around the world have locked down and heavily restricted social gatherings in efforts to prevent the spread of SARS-CoV2, more commonly referred to as COVID-19. With the world essentially in lock down, it seems as though every news outlet is reporting about COVID-19. However, with the increasing articles about the virus and its effects, the amount of false information is increasing as well. 
-
-https://www.worldometers.info/coronavirus/coronavirus-death-rate/
+In the last couple months, the United States and many countries around the world have locked down and heavily restricted social gatherings in efforts to prevent the spread of SARS-CoV2, more commonly referred to as COVID-19. With the world essentially in lock down, it seems as though every news outlet is reporting about COVID-19. However, with the increasing articles about the virus and its effects, the amount of false information is increasing as well. As of now, most media outlets are calculating the CMR (crude mortality rate) by dividing the total cases by the deaths. However, the more true calculation of mortality from COVID-19 is (deaths + recovered)/(total cases). With this method, a more accurate mortality can be precieved and can be used to visulalize a more accurate infection curve. 
 
 ## 2. Motivation
 
 Due to all the varying sources and data online, we decided to use a public dataset on COVID-19 cases within the United States to find out for ourselves what the true impacts of the virus are. Finding out the true impacts of COVID-19 is important because the virus is highly contagious. Therefore, the impacts of the virus will be widespread. Additionally, this tutorial will analyze the mortality rates within the United States by state without any media bias, so the results will show a more accurate picture of what the United States can expect in the future. 
-In this tutorial, we will analyze the spread of coronavirus within the United States. We will examine the 
+In this tutorial, we will analyze the spread of coronavirus within the United States. We will examine the mortality rates of coronavirus within each state. We will then use predictive modeling to determine the true impacts we can expect from COVID-19.
 
 ## 3, Libraries
 
