@@ -1,7 +1,7 @@
 ---
 title: "Corona Analysis"
-author: "Non Nonceeya"
-date: "5/18/2020"
+author: "Non Nonceeya, Nicholas Guan, Angela Pandit"
+date: "5/17/2020"
 output: html_document
 ---
 
@@ -74,5 +74,35 @@ First, let's display a graph of the cumulative confirmed, death, and recovered c
 ```{r graph1}
 
 US_data %>%
-  ggplot()
+  ggplot(aes(Date)) +
+  geom_line(aes(y=Confirmed, colour="Confirmed Cases (Cumulative)")) +
+  geom_line(aes(y=Death, colour="Deaths (Cumulative)")) +
+  geom_line(aes(y=Recovered, colour="Recovered (Cumulative)")) +
+  labs(title="Cases in the United States", x="Month (2020)", y="Amount")
+
+```
+
+
+We can see that starting from mid-March, there was a steep increase in cases. Let's filter the date to after March 15th so we can get a better view at the growth. For the filtered dates, we will also graph the newConfirmed, newDeath, and newRecovered columns. The additional columns indicate the amount of cases on a given day and will assist us in further analysis.
+
+```{r graph2}
+
+US_data_filt <- filter(US_data, Date >= "2020-03-15")
+
+US_data_filt %>%
+  ggplot(aes(Date)) +
+  geom_line(aes(y=Confirmed, colour="Confirmed Cases")) +
+  geom_line(aes(y=Death, colour="Deaths")) +
+  geom_line(aes(y=Recovered, colour="Recovered")) +
+  labs(title="Cumulative Cases in U.S.", x="Month (2020)", y="Amount")
+
+
+US_data_filt %>%
+  ggplot(aes(Date)) +
+  geom_line(aes(y=newConfirmed, colour="Confirmed Cases")) +
+  geom_line(aes(y=newDeath, colour="Deaths")) +
+  geom_line(aes(y=newRecovered, colour="Recovered")) +
+  labs(title="Cases per day in the U.S.", x="Month (2020)", y="Amount")
+
+
 ```
