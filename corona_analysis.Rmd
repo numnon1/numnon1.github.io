@@ -1,5 +1,5 @@
 ---
-title: "Corona Analysis"
+title: "Coronavirus Analysis in the United States"
 knit: (function(input_file, encoding) {
   out_dir <- '/';
   rmarkdown::render(input_file,
@@ -44,11 +44,13 @@ library(stringr)
 ## 4. Getting started with the Data
 
 Dataset can be found at: https://www.kaggle.com/ashudata/covid19dataset 
+
 There are **2** datasets available but for this analysis we have chosen the **COVID_Data_Basic** dataset
 
 The data is fetched from John Hopkins University & European Centre for Disease Prevention and Control (ECDC), processed, and available in a CSV format. Also note that these sources are considered to be credible.
 
 List of attributes in this dataset: 
+
 * Country: Affected Country
 * Date: Date of observation (YYYY-MM-DD)
 * Confirmed: Cumulative # of confirmed cases
