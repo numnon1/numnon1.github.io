@@ -1,5 +1,10 @@
 ---
 title: "Corona Analysis"
+knit: (function(input_file, encoding) {
+  out_dir <- '/';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 author: "Non Nonceeya, Nicholas Guan, Angela Pandit"
 date: "5/17/2020"
 output: html_document
@@ -7,6 +12,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
 ## 1. Introduction
