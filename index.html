@@ -371,12 +371,11 @@ summary {
 
 <div id="introduction" class="section level2">
 <h2>1. Introduction</h2>
-<p>In the last couple months, the United States and many countries around the world have locked down and heavily restricted social gatherings in efforts to prevent the spread of SARS-CoV2, more commonly referred to as COVID-19. With the world essentially in lock down, it seems as though every news outlet is reporting about COVID-19. However, with the increasing articles about the virus and its effects, the amount of false information is increasing as well.</p>
-<p><a href="https://www.worldometers.info/coronavirus/coronavirus-death-rate/" class="uri">https://www.worldometers.info/coronavirus/coronavirus-death-rate/</a></p>
+<p>In the last couple months, the United States and many countries around the world have locked down and heavily restricted social gatherings in efforts to prevent the spread of SARS-CoV2, more commonly referred to as COVID-19. With the world essentially in lock down, it seems as though every news outlet is reporting about COVID-19. However, with the increasing articles about the virus and its effects, the amount of false information is increasing as well. As of now, most media outlets are calculating the CMR (crude mortality rate) by dividing the total cases by the deaths. However, the more true calculation of mortality from COVID-19 is (deaths + recovered)/(total cases). With this method, a more accurate mortality can be precieved and can be used to visulalize a more accurate infection curve.</p>
 </div>
 <div id="motivation" class="section level2">
 <h2>2. Motivation</h2>
-<p>Due to all the varying sources and data online, we decided to use a public dataset on COVID-19 cases within the United States to find out for ourselves what the true impacts of the virus are. Finding out the true impacts of COVID-19 is important because the virus is highly contagious. Therefore, the impacts of the virus will be widespread. Additionally, this tutorial will analyze the mortality rates within the United States by state without any media bias, so the results will show a more accurate picture of what the United States can expect in the future. In this tutorial, we will analyze the spread of coronavirus within the United States. We will examine the</p>
+<p>Due to all the varying sources and data online, we decided to use a public dataset on COVID-19 cases within the United States to find out for ourselves what the true impacts of the virus are. Finding out the true impacts of COVID-19 is important because the virus is highly contagious. Therefore, the impacts of the virus will be widespread. Additionally, this tutorial will analyze the mortality rates within the United States by state without any media bias, so the results will show a more accurate picture of what the United States can expect in the future. In this tutorial, we will analyze the spread of coronavirus within the United States. We will examine the mortality rates of coronavirus within each state. We will then use predictive modeling to determine the true impacts we can expect from COVID-19.</p>
 </div>
 <div id="libraries" class="section level2">
 <h2>3, Libraries</h2>
@@ -440,16 +439,16 @@ library(stringr)</code></pre>
 <pre><code>## # A tibble: 10 x 9
 ##       X1 Country Date       Confirmed Death Recovered newConfirmed newDeath
 ##    &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-##  1 10518 Kenya   2020-04-08       179     6         9            7        0
-##  2 17834 Slovak~ 2020-04-16       977     8       167          114        2
-##  3  3359 Ethiop~ 2020-02-09         0     0         0            0        0
-##  4 87611 Holy S~ 2020-03-22         1     0         0            0        0
-##  5 10202 Uzbeki~ 2020-02-04         0     0         0            0        0
-##  6   640 Azerba~ 2020-01-07         0     0         0            0        0
-##  7 11473 Lesotho 2020-05-05         0     0         0            0        0
-##  8  6113 Maldiv~ 2020-02-03         0     0         0            0        0
-##  9 54071 Czechia 2020-04-01      3508    39        61          200        8
-## 10 20372 Ukraine 2020-04-02       897    22        19          103        2
+##  1 17937 Sloven~ 2020-04-03       934    20        70           37        3
+##  2  2000 Chile   2020-03-15        74     0         0           13        0
+##  3  6053 Malays~ 2020-02-01         8     0         0            0        0
+##  4 14811 North ~ 2020-04-09       663    30        37           46        1
+##  5  1167 Benin   2020-03-02         0     0         0            0        0
+##  6 17039 Sao To~ 2020-05-03        16     1         4            0        0
+##  7 12239 Malawi  2020-03-20         0     0         0            0        0
+##  8  6347 Maurit~ 2020-02-05         0     0         0            0        0
+##  9  6020 Luxemb~ 2020-03-19       335     4         0          132        2
+## 10 77411 Germany 2020-04-15    134753  3804     72600         3394      510
 ## # ... with 1 more variable: newRecovered &lt;dbl&gt;</code></pre>
 <p>Our goal is to analyze the COVID-19 situation in the United States so we would then use <strong>filter</strong> from the <strong>dplyr</strong> library to obtain just the United State data (labeled US).</p>
 <pre class="r"><code>US_data &lt;- filter(covid_data, Country == &quot;US&quot;)
