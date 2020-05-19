@@ -439,16 +439,16 @@ library(stringr)</code></pre>
 <pre><code>## # A tibble: 10 x 9
 ##       X1 Country Date       Confirmed Death Recovered newConfirmed newDeath
 ##    &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-##  1 19088 Syria   2020-03-25         5     0         0            4        0
-##  2 10965 Kyrgyz~ 2020-03-22        14     0         0            0        0
-##  3   363 Argent~ 2020-02-19         0     0         0            0        0
-##  4  5844 Liecht~ 2020-03-03         0     0         0            0        0
-##  5   295 Antigu~ 2020-02-09         0     0         0            0        0
-##  6  2665 Czechia 2020-02-05         0     0         0            0        0
-##  7  8281 Saint ~ 2020-02-07         0     0         0            0        0
-##  8  8994 Spain   2020-02-16         2     0         2            0        0
-##  9 11472 Lesotho 2020-05-04         0     0         0            0        0
-## 10 10758 Kosovo  2020-04-16       449    11        79           62        3
+##  1  9299 Sweden  2020-03-16      1103     6         1           81        3
+##  2  9995 United~ 2020-01-24         0     0         0            0        0
+##  3  2222 Congo ~ 2020-02-12         0     0         0            0        0
+##  4  7110 Nicara~ 2020-02-20         0     0         0            0        0
+##  5  8551 Serbia  2020-02-23         0     0         0            0        0
+##  6  8758 Slovak~ 2020-03-05         0     0         0            0        0
+##  7 10338 Vietnam 2020-02-02         6     0         1            0        0
+##  8 65810 Antigu~ 2020-04-08        19     2         0            0        1
+##  9 65701 Eritrea 2020-04-04        29     0         0            7        0
+## 10  6899 Nepal   2020-02-27         1     0         1            0        0
 ## # ... with 1 more variable: newRecovered &lt;dbl&gt;</code></pre>
 <p>Our goal is to analyze the COVID-19 situation in the United States so we would then use <strong>filter</strong> from the <strong>dplyr</strong> library to obtain just the United State data (labeled US).</p>
 <pre class="r"><code>US_data &lt;- filter(covid_data, Country == &quot;US&quot;)
@@ -512,7 +512,7 @@ US_data_filt %&gt;%
 <p>In order to further analyze this, we decided to look at another dataset that focuses on Coronavirus statistics in the United States.</p>
 <p>Dataset can be found at: <a href="https://www.kaggle.com/headsortails/covid19-us-county-jhu-data-demographics" class="uri">https://www.kaggle.com/headsortails/covid19-us-county-jhu-data-demographics</a></p>
 <p>There are many datasets available at this source but for this analysis we have chosen the <strong>covid_us_county</strong> dataset</p>
-<p>The data is also fetched from John Hopkins University but focuses more on the cases for every state and county in the United States. This would be helpful in seeing how different states have reacted.</p>
+<p>The data is also fetched from John Hopkins University but focuses more on the cases for every state and county in the United States. We want to approach this by grouping the states together. We will then have another dataset that will increase the accuracy of our US analysis.</p>
 <p>There are many different columns but we only be viewing these:</p>
 <ul>
 <li>state: Name of US State</li>
@@ -520,7 +520,7 @@ US_data_filt %&gt;%
 <li>cases: Cumulative # cases</li>
 <li>deaths: Cumulative # deaths</li>
 </ul>
-<p>For this particular dataset, the Date column did not come as polished as the earlier dataset. Thus, we must <strong>tidy</strong> the Date column and translate /20 into /2020 for the year. After that, we want to focus on after mid-March based on our previous analysis so we must <strong>filter</strong> and then plot this dataset.</p>
+<p>For this particular dataset, the Date column did not come as polished as the earlier dataset. Thus, we must <strong>tidy</strong> the Date column and translate /20 into /2020 for the year. After that, we want to focus on after mid-March based on our previous analysis so we must <strong>filter</strong> and then plot this dataset. After plotting the new dataset, we are able to see that a similar trend follows thus we are able to move forward with further analyses.</p>
 <pre class="r"><code>csv_file &lt;- &quot;covid_us_county.csv&quot;
 dataset2 &lt;- read_csv(csv_file)</code></pre>
 <pre><code>## Parsed with column specification:
@@ -537,18 +537,18 @@ dataset2 &lt;- read_csv(csv_file)</code></pre>
 ## )</code></pre>
 <pre class="r"><code>sample_n(dataset2, 10)</code></pre>
 <pre><code>## # A tibble: 10 x 9
-##     fips county       state          lat   long date    cases state_code deaths
-##    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
-##  1 29041 Chariton     Missouri      39.5  -93.0 3/30/20     3 MO              0
-##  2 46009 Bon Homme    South Dakota  43.0  -97.9 3/7/20      0 SD              0
-##  3 20133 Neosho       Kansas        37.6  -95.3 3/10/20     0 KS              0
-##  4 80056 Out of WY    Wyoming        0      0   2/29/20     0 WY              0
-##  5  5001 Arkansas     Arkansas      34.3  -91.4 2/16/20     0 AR              0
-##  6 13083 Dade         Georgia       34.9  -85.5 1/22/20     0 GA              0
-##  7 36117 Wayne        New York      43.2  -77.0 2/27/20     0 NY              0
-##  8 29187 St. Francois Missouri      37.8  -90.5 2/15/20     0 MO              0
-##  9 48149 Fayette      Texas         29.9  -96.9 2/21/20     0 TX              0
-## 10 53063 Spokane      Washington    47.6 -117.  5/9/20    381 WA             28</code></pre>
+##     fips county       state           lat   long date    cases state_code deaths
+##    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
+##  1 12013 Calhoun      Florida        30.4  -85.2 2/6/20      0 FL              0
+##  2 12073 Leon         Florida        30.5  -84.3 1/22/20     0 FL              0
+##  3 18171 Warren       Indiana        40.3  -87.4 4/17/20     5 IN              1
+##  4 42055 Franklin     Pennsylvania   39.9  -77.7 4/17/20    89 PA              0
+##  5 25005 Bristol      Massachusetts  41.8  -71.1 5/5/20   4235 MA            210
+##  6    72 &lt;NA&gt;         Puerto Rico    18.2  -66.6 3/1/20      0 &lt;NA&gt;            0
+##  7 48169 Garza        Texas          33.2 -101.  2/8/20      0 TX              0
+##  8 19051 Davis        Iowa           40.7  -92.4 3/19/20     0 IA              0
+##  9 34029 Ocean        New Jersey     39.9  -74.3 3/17/20     4 NJ              0
+## 10 51143 Pittsylvania Virginia       36.8  -79.4 5/3/20     14 VA              1</code></pre>
 <pre class="r"><code>plot_me &lt;- dataset2 %&gt;%
   select(state, date, deaths)  %&gt;%
   mutate(date = paste(date, &quot;20&quot;, sep=&quot;&quot;)) %&gt;%
@@ -590,7 +590,7 @@ result2</code></pre>
 </div>
 <div id="conclusion" class="section level2">
 <h2>8. Conclusion</h2>
-<p>Through our analysis and predictive modeling of the mortality rate of COVID-19, we can see that over time, the mortality rate will increase. As the rate of transmission increases, it is natural for the mortality rate to increase as well. However, currently the protocol for reporting COVID-19 deaths is not so black and white. For example, if a man unknowingly has COVID-19 and dies of a heart attack due to a history of hypertension his death will be recorded as a COVID-19 death, even if he had not experienced any symptoms related to the virus prior to his death. <a href="https://www.medpagetoday.com/blogs/working-stiff/85925" class="uri">https://www.medpagetoday.com/blogs/working-stiff/85925</a> There are multiple cases like this being reported almost daily, so that skews the original dataset with an already inaccurate death count. However, while this contributes to the increasing mortality rate and is a limitation with our data, the increasing mortality rate should not be ignored. This shows that if the virus is not taken seriously and safety precautions, like social distancing, are ignored, a second-wave is very probable.</p>
+<p>Through our analysis and predictive modeling of the mortality rate of COVID-19, we can see that over time, the mortality rate will increase. As the rate of transmission increases, it is natural for the mortality rate to increase as well. However, currently the protocol for reporting COVID-19 deaths is not so black and white. For example, if a man unknowingly has COVID-19 and dies of a heart attack due to a history of hypertension his death will be recorded as a COVID-19 death, even if he had not experienced any symptoms related to the virus prior to his death. <a href="https://www.medpagetoday.com/blogs/working-stiff/85925" class="uri">https://www.medpagetoday.com/blogs/working-stiff/85925</a> There are multiple cases like this being reported almost daily, so that skews the original dataset with an already inaccurate death count. However, while this contributes to the increasing mortality rate and is a limitation with our data, the increasing mortality rate should not be ignored. This shows that if the virus is not taken seriously and safety precautions, like social distancing, are ignored, a second-wave is very probable. Our linear regression model showed an increase in the number of confirmed deaths over time; however it is important to note that there is only a finite number of people who can be infected, and over time the mortality rate will decrease as the rate of transmission decreases. Therefore, an increase in mortality rate through this modeling does not confirm that deaths will continue to increase per day, especially with increased compliance to safety regulation.</p>
 </div>
 
 
